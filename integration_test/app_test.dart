@@ -10,7 +10,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('Integration Test', (tester) async {
     final providerKey = GlobalKey();
-    app.main([], GlobalKey());
+    app.main(list: [], providerKey: GlobalKey());
     await tester.pumpAndSettle();
     //Testando tela inicial
     expect(find.text('Clientes'), findsOneWidget);
