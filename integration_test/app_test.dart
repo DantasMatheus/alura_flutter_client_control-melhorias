@@ -49,5 +49,30 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Ferro'), findsOneWidget);
     expect(find.byIcon(Icons.ac_unit), findsOneWidget);
+
+    //Criar um cliente
+    await tester.tap(find.byIcon(Icons.menu));
+    ;
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Gerenciar clientes'));
+    ;
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(FloatingActionButton));
+    ;
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byType(TextFormField), 'Cliente de Teste');
+    await tester.enterText(find.byType(TextFormField), 'client@mail.com');
+
+    await tester.tap(find.byIcon(Icons.arrow_downward));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Ferro').last);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pumpAndSettle();
   });
 }
