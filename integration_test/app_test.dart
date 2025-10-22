@@ -8,9 +8,27 @@ void main() {
   testWidgets('Integration Test', (tester) async {
     app.main();
     await tester.pumpAndSettle();
-    expect(find.text('Menu'), findsNothing);
+    //Testando tela inicial
+    expect(find.text('Clientes'), findsOneWidget);
+    expect(find.byIcon(Icons.menu), findsOneWidget);
+    expect(find.byType(FloatingActionButton), findsOneWidget);
+    //Testando drawer
     await tester.tap(find.byIcon(Icons.menu));
     await tester.pumpAndSettle();
     expect(find.text('Menu'), findsOneWidget);
+    expect(find.text('Gerenciar clientes'), findsOneWidget);
+    expect(find.text('Tipos de clientes'), findsOneWidget);
+    expect(find.text('Sair'), findsOneWidget);
+
+    //Testar a navegação e a tela de tipos
+    await tester.tap(find.text('Tipos de clientes'));
+    await tester.pumpAndSettle();
+    expect(find.text('Tipos de cliente'), findsOneWidget);
+    expect(find.byType(FloatingActionButton), findsOneWidget);
+    expect(find.byIcon(Icons.menu), findsOneWidget);
+    expect(find.text('Platinum'), findsOneWidget);
+    expect(find.text('Golden'), findsOneWidget);
+    expect(find.text('Titanium'), findsOneWidget);
+    expect(find.text('Diamond'), findsOneWidget);
   });
 }
