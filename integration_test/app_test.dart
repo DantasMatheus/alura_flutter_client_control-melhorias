@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -30,5 +32,22 @@ void main() {
     expect(find.text('Golden'), findsOneWidget);
     expect(find.text('Titanium'), findsOneWidget);
     expect(find.text('Diamond'), findsOneWidget);
+
+    // Testar a criação do tipo de cliente
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+    expect(find.byType(AlertDialog), findsOneWidget);
+    await tester.enterText(find.byType(TextFormField), 'Ferro');
+
+    await tester.tap(find.text('Sekecionar ícone'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byIcon(Icons.ac_unit).first);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Ferro'), findsOneWidget);
+    expect(find.byIcon(Icons.ac_unit), findsOneWidget);
   });
 }
