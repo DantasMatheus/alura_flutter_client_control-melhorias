@@ -63,8 +63,8 @@ void main() {
     ;
     await tester.pumpAndSettle();
 
-    await tester.enterText(find.byType(TextFormField), 'Cliente de Teste');
-    await tester.enterText(find.byType(TextFormField), 'client@mail.com');
+    await tester.enterText(find.byKey(Key('nameField')), 'Cliente de Teste');
+    await tester.enterText(find.byKey(Key('emailField')), 'client@mail.com');
 
     await tester.tap(find.byIcon(Icons.arrow_downward));
     await tester.pumpAndSettle();
