@@ -1,9 +1,12 @@
 import 'dart:math';
 
+import 'package:client_control/models/clients.dart';
+import 'package:client_control/models/types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:client_control/main.dart' as app;
+import 'package:provider/provider.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -50,17 +53,17 @@ void main() {
     expect(find.text('Ferro'), findsOneWidget);
     expect(find.byIcon(Icons.ac_unit), findsOneWidget);
 
+    expect(Provider.of<Types>(context).types.last.name, 'Ferro');
+    expect(Provider.of<Types>(context).types.last.icon, Icons.ac_unit);
+
     //Criar um cliente
     await tester.tap(find.byIcon(Icons.menu));
-    ;
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('Gerenciar clientes'));
-    ;
     await tester.pumpAndSettle();
 
     await tester.tap(find.byType(FloatingActionButton));
-    ;
     await tester.pumpAndSettle();
 
     await tester.enterText(find.byKey(Key('nameField')), 'Cliente de Teste');
@@ -74,5 +77,12 @@ void main() {
 
     await tester.tap(find.text('Salvar'));
     await tester.pumpAndSettle();
+
+    //Verificar se o cliente foi criado
+    expect(find.text('Cliente de Teste (Ferro)'), findsOneWidget);
+    expect(find.byIcon(Icons.ac_unit), findsOneWidget);
+
+    expect(Provider.of<Clients>(context).clients.last.name, 'Cliente de Teste');
+    expect(Provider.of<Clients>(context).clients.last.email, 'client@mail.com');
   });
 }
