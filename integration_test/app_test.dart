@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:client_control/models/clients.dart';
 import 'package:client_control/models/types.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,8 @@ import 'package:provider/provider.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('Integration Test', (tester) async {
-    app.main();
+    final providerKey = GlobalKey();
+    app.main([], GlobalKey());
     await tester.pumpAndSettle();
     //Testando tela inicial
     expect(find.text('Clientes'), findsOneWidget);
@@ -53,8 +52,20 @@ void main() {
     expect(find.text('Ferro'), findsOneWidget);
     expect(find.byIcon(Icons.ac_unit), findsOneWidget);
 
-    expect(Provider.of<Types>(context).types.last.name, 'Ferro');
-    expect(Provider.of<Types>(context).types.last.icon, Icons.ac_unit);
+    expect(
+      Provider.of<Types>(
+        providerKey.currentContext!,
+        listen: false,
+      ).types.last.name,
+      'Ferro',
+    );
+    expect(
+      Provider.of<Types>(
+        providerKey.currentContext!,
+        listen: false,
+      ).types.last.icon,
+      Icons.ac_unit,
+    );
 
     //Criar um cliente
     await tester.tap(find.byIcon(Icons.menu));
@@ -82,7 +93,19 @@ void main() {
     expect(find.text('Cliente de Teste (Ferro)'), findsOneWidget);
     expect(find.byIcon(Icons.ac_unit), findsOneWidget);
 
-    expect(Provider.of<Clients>(context).clients.last.name, 'Cliente de Teste');
-    expect(Provider.of<Clients>(context).clients.last.email, 'client@mail.com');
+    expect(
+      Provider.of<Clients>(
+        providerKey.currentContext!,
+        listen: false,
+      ).clients.last.name,
+      'Cliente de Teste',
+    );
+    expect(
+      Provider.of<Clients>(
+        providerKey.currentContext!,
+        listen: false,
+      ).clients.last.email,
+      'client@mail.com',
+    );
   });
 }

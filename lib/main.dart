@@ -6,7 +6,7 @@ import 'models/client_type.dart';
 import 'models/types.dart';
 import 'pages/clients_page.dart';
 
-void main() {
+void main(List<String> list, Key providerKey) {
   runApp(
     MultiProvider(
       providers: [
@@ -23,7 +23,7 @@ void main() {
               ),
         ),
       ],
-      child: const MyApp(),
+      child: MyApp(key: providerKey),
     ),
   );
 }
